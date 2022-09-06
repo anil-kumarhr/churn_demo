@@ -9,3 +9,4 @@ scipy>=1.2.1
 scikit-learn
 werkzeug==2.0.3
 pandas>=0.24.2
+setuptools>=3.0
