@@ -1,18 +1,37 @@
 <html>
-    <body bgcolor= #92a8d1>
+<head>
+<style>
+form { 
+  display: block;
+  margin-top: 1em;
+  
+}
 
-        <center>
+</style>
+</head>
+    <body bgcolor= #ff6347>
 
-        <h1> Gym App Prediction</h1><br>
+        
+
+        <h1> Churn Prediction</h1><br>
         
         <form method="POST", action="{{url_for('home')}}">
            <b> total debit transactions for S3:  <input type="text", name='a', placeholder="enter 1"> <br><br>
-            total debit amount for S3 :  <input type="text", name='b', placeholder="enter 2"> <br><br>
-            total debit amount :  <input type="text", name='c', placeholder="enter 3"> <br><br>
+            total transactions :  <input type="text", name='b', placeholder="enter 2"> <br><br>
+            total debit transactions :  <input type="text", name='c', placeholder="enter 3"> <br><br>
+            # total credit transactions for S3:  <input type="text", name='d', placeholder="enter 4"> <br><br>
+             # total debit transactions for S2 :  <input type="text", name='e', placeholder="enter 5"> <br><br>
+             # total debit transactions for S1 :  <input type="text", name='f', placeholder="enter 6"> <br><br>
+             total credit transactions:  <input type="text", name='g', placeholder="enter 7"> <br><br>
+              # total credit transactions for S2 :  <input type="text", name='h', placeholder="enter 8"> <br><br>
+              # total credit transactions for S1 :  <input type="text", name='i', placeholder="enter 9"> <br><br>
+            
             <input type="submit" , value='predict!' >
         </form>
+        
+       
 
-        <img src='C:\Users\rakes\Desktop\download.jpg' alt="Machine learning">
+        
         
     </center>
 

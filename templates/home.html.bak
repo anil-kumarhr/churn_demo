@@ -1,0 +1,20 @@
+<html>
+    <body bgcolor= #92a8d1>
+
+        <center>
+
+        <h1> Gym App Prediction</h1><br>
+        
+        <form method="POST", action="{{url_for('home')}}">
+           <b> total debit transactions for S3:  <input type="text", name='a', placeholder="enter 1"> <br><br>
+            total debit amount for S3 :  <input type="text", name='b', placeholder="enter 2"> <br><br>
+            total debit amount :  <input type="text", name='c', placeholder="enter 3"> <br><br>
+            <input type="submit" , value='predict!' >
+        </form>
+
+        <img src='C:\Users\rakes\Desktop\download.jpg' alt="Machine learning">
+        
+    </center>
+
+    </body>
+</html>

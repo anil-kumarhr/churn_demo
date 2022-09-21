@@ -11,36 +11,47 @@ import warnings
 warnings.filterwarnings('ignore')
 from sklearn import preprocessing
 from sklearn.ensemble import RandomForestClassifier
+from imblearn.over_sampling import SMOTE
+from sklearn.metrics import classification_report
 import pickle
 
 churn = pd.read_excel(r"CHURNDATA.xlsx")
-churn=churn[['# total debit transactions for S3','total debit amount for S3','total debit amount','total transactions','total debit transactions','total credit amount for S3','# total debit transactions for S2','AGE','Status']]
+churn2=churn[['# total debit transactions for S3', 'total transactions',
+       'total debit transactions', '# total credit transactions for S3',
+       '# total debit transactions for S2',
+       '# total debit transactions for S1', 'total credit transactions',
+       '# total credit transactions for S2',
+       '# total credit transactions for S1','Status']]
 
 label_encoder = preprocessing.LabelEncoder()
-churn['Status']= label_encoder.fit_transform(churn['Status']) 
-pd.to_numeric(churn['Status'])
+churn2['Status']= label_encoder.fit_transform(churn2['Status']) 
+pd.to_numeric(churn2['Status'])
 
 
 
 
-class_count_1, class_count_0 = churn['Status'].value_counts()
-print(class_count_0)
-class_1 = churn[churn['Status'] == 0]
-print(class_1)
-class_0 = churn[churn['Status'] == 1]
-class_1_under = class_1.sample(class_count_0)
+class_1 = churn2[churn2['Status'] == 1]
+class_0 = churn2[churn2['Status'] == 0]
+print(class_0.shape)
+class_1_under = class_0.sample(800)
 
-test_under = pd.concat([class_1_under, class_0], axis=0)
-x = test_under.iloc[:,0:3]
-y = test_under.iloc[:,8:]
+test_under = pd.concat([class_1_under, class_1], axis=0)
+
+test_under = pd.concat([class_1_under, class_1], axis=0)
+a = test_under.iloc[:,0:9]
+b = test_under.iloc[:,9:]
+
+usmote = SMOTE(random_state=10)
+X_smote, y_smote = usmote.fit_resample(a,b)
+print(X_smote.shape)
 
 
-
-
-regressor =  RandomForestClassifier(class_weight={0:1, 1:1}, n_estimators= 80, min_samples_leaf= 1, max_depth=4)
+regressor =  RandomForestClassifier( n_estimators= 30, min_samples_leaf= 8, max_depth=8)
 
 #Fitting model with trainig data
-regressor.fit(x, y)
+regressor.fit(X_smote, y_smote)
+Ypred=regressor.predict(X_smote)
+print(classification_report(y_smote, Ypred))
 
 # Saving model to disk
 pickle.dump(regressor, open('model.pkl','wb'))
